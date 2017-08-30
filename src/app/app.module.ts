@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { Angular2TokenService } from 'angular2-token';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { MaterializeModule } from 'angular2-materialize';
 
 @NgModule({
   declarations: [
@@ -13,6 +14,7 @@ import { RouterModule } from '@angular/router';
     BrowserModule,
     HttpModule,
     RouterModule
+    MaterializeModule
   ],
   providers: [ Angular2TokenService ],
   bootstrap: [ AppComponent ]
