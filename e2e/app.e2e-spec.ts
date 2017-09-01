@@ -1,14 +1,14 @@
-import { AppPage } from './app.po';
+import { AngularDeviseTokenSeedPage } from './app.po';
 
-describe('angular-booking App', () => {
-  let page: AppPage;
+describe('angular-devise-token-seed App', function() {
+  let page: AngularDeviseTokenSeedPage;
 
   beforeEach(() => {
-    page = new AppPage();
+    page = new AngularDeviseTokenSeedPage();
   });
 
-  it('should display welcome message', () => {
+  it('should display message saying app works', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('Welcome to app!');
+    expect(page.getParagraphText()).toEqual('app works!');
   });
 });
