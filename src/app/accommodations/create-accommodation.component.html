@@ -1,0 +1,51 @@
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <div class="row">
+    <div class="input-field col s6">
+      <input id="name"
+             type="text"
+             required
+             name="name"
+             [(ngModel)]="accommodation.name"/>
+      <label for="name">Name</label>
+    </div>
+    <div class="input-field col s6">
+      <select id="accommodation_type" name="accommodation_type" [(ngModel)]="accommodation.type">
+        <option value="" disabled selected>Choose your option</option>
+        <option *ngFor="let type of types" value="{{type.id}}">{{type.name}}</option>
+      </select>
+      <label for="name">Name</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <textarea id="description" name="description" class="materialize-textarea" [(ngModel)]="accommodation.description"></textarea>
+      <label for="description">Description</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input id="address" name="address" [(ngModel)]="accommodation.address"/>
+      <label for="address">Address</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s6">
+      <input id="latitude" name="latitude" type="number" [(ngModel)]="accommodation.latitude"/>
+      <label for="latitude">Latitude</label>
+    </div>
+    <div class="input-field col s6">
+      <input id="longitude" name="longitude" type="number" [(ngModel)]="accommodation.longitude"/>
+      <label for="longitude">Longitude</label>
+    </div>
+  </div>
+  <div class="row">
+    <div class="input-field col s12">
+      <input id="image_url" name="image_url" type="text" [(ngModel)]="accommodation.imageUrl" />
+      <label for="image_url">Image URL</label>
+    </div>
+  </div>
+
+  <div class="col s12">
+    <button type="submit" [disabled]="!(f.valid)" class="waves-effect waves-light btn blue right"> Create </button>
+  </div>
+</form>
