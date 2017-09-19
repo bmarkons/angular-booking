@@ -88,6 +88,13 @@ export class AuthService {
     ).map(res => res.json() as Accommodation);
   }
 
+  approve(accommodation: Accommodation):Observable<Accommodation>{
+    return this.authService.post(
+      `accommodations/${accommodation.id}/approve`,
+      null
+    ).map(res => res.json() as Accommodation);
+  }
+
   // Rooms
 
   createRoom(room: Room):Observable<Room>{

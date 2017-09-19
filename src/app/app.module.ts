@@ -18,6 +18,7 @@ import { CreateRoomComponent } from './accommodations/create-room.component';
 import { AuthGuard } from "./guards/auth.guard";
 import { AuthService } from "./services/auth.service";
 import { ApiService } from "./services/api.service";
+import { AccommodationsListComponent } from './accommodations/accommodations-list.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { ApiService } from "./services/api.service";
     RegisterFormComponent,
     ProfileComponent,
     CreateAccommodationComponent,
-    CreateRoomComponent
+    CreateRoomComponent,
+    AccommodationsListComponent
   ],
   imports: [
     BrowserModule,

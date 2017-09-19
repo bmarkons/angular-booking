@@ -1,0 +1,16 @@
+<h4>Accommodations</h4>
+
+<div class="col s6">
+  <div class="collection">
+    <a class="collection-item" 
+       *ngFor="let accommodation of accommodations" 
+       [class.active]="selected == accommodation"
+       (click)="selected = accommodation">
+      {{accommodation.name}}
+    </a>
+  </div>
+</div>
+<div class="col s6" *ngIf="selected">
+  <button (click)="approve(selected)" *ngIf="!selected.approved" class="waves-effect waves-light btn green">Approve</button>
+  <p *ngIf="selected.approved">Approved</p>
+</div>
