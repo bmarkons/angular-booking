@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CreateAccommodationComponent } from '../accommodations/create-accommodation.component';
 
 @Component({
   selector: 'app-home',

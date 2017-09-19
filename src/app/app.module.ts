@@ -12,9 +12,11 @@ import { AuthDialogComponent } from './auth-dialog/auth-dialog.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AuthService } from "./services/auth.service";
-import { AuthGuard } from "./guards/auth.guard";
 import { CreateAccommodationComponent } from './accommodations/create-accommodation.component';
+
+import { AuthGuard } from "./guards/auth.guard";
+import { AuthService } from "./services/auth.service";
+import { ApiService } from "./services/api.service";
 
 @NgModule({
   declarations: [
@@ -34,7 +36,7 @@ import { CreateAccommodationComponent } from './accommodations/create-accommodat
     AppRoutingModule,
     MaterializeModule,
   ],
-  providers: [ Angular2TokenService, AuthService, AuthGuard ],
+  providers: [ Angular2TokenService, AuthService, AuthGuard, ApiService ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

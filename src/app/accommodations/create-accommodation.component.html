@@ -1,4 +1,4 @@
-<form (ngSubmit)="onSubmit()" #f="ngForm">
+<form #f="ngForm">
   <div class="row">
     <div class="input-field col s6">
       <input id="name"
@@ -9,11 +9,14 @@
       <label for="name">Name</label>
     </div>
     <div class="input-field col s6">
-      <select id="accommodation_type" name="accommodation_type" [(ngModel)]="accommodation.type">
-        <option value="" disabled selected>Choose your option</option>
-        <option *ngFor="let type of types" value="{{type.id}}">{{type.name}}</option>
+      <select materialize="material_select" 
+              [materializeSelectOptions]="accommodationTypes"
+              id="accommodation_type"
+              name="accommodation_type"
+              [(ngModel)]="accommodation.accommodation_type">
+        <option value="" disabled selected>Choose type</option>
+        <option *ngFor="let type of accommodationTypes" [ngValue]="type">{{type.name}}</option>
       </select>
-      <label for="name">Name</label>
     </div>
   </div>
   <div class="row">
@@ -23,8 +26,18 @@
     </div>
   </div>
   <div class="row">
-    <div class="input-field col s12">
-      <input id="address" name="address" [(ngModel)]="accommodation.address"/>
+    <div class="input-field col s6">
+      <select materialize="material_select" 
+              [materializeSelectOptions]="places"
+              id="place"
+              name="place"
+              [(ngModel)]="accommodation.place">
+        <option value="" disabled selected>Choose place</option>
+        <option *ngFor="let place of places" [ngValue]="place">{{place.name}}</option>
+      </select>
+    </div>
+    <div class="input-field col s6">
+      <input id="address" name="address" type="text" [(ngModel)]="accommodation.address"/>
       <label for="address">Address</label>
     </div>
   </div>
@@ -40,12 +53,12 @@
   </div>
   <div class="row">
     <div class="input-field col s12">
-      <input id="image_url" name="image_url" type="text" [(ngModel)]="accommodation.imageUrl" />
+      <input id="image_url" name="image_url" type="text" [(ngModel)]="accommodation.image_url" />
       <label for="image_url">Image URL</label>
     </div>
   </div>
 
   <div class="col s12">
-    <button type="submit" [disabled]="!(f.valid)" class="waves-effect waves-light btn blue right"> Create </button>
+    <button type="submit" (click)="create()" [disabled]="!(f.valid)" class="waves-effect waves-light btn blue right"> Create </button>
   </div>
 </form>

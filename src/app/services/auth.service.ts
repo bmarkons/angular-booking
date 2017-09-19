@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import {Angular2TokenService} from "angular2-token";
 import {Subject, Observable} from "rxjs";
-import {Response} from "@angular/http";
+import {Response } from "@angular/http";
+
+import { AccommodationType } from '../models/accommodation_type';
+import { Accommodation } from '../models/accommodation';
+import { Place } from '../models/place';
 
 @Injectable()
 export class AuthService {
@@ -45,4 +49,34 @@ export class AuthService {
 
   }
 
+  // Accommodation types
+
+  getAccommodationTypes():Observable<AccommodationType[]>{
+    return this.authService.get('accommodation_types').map(res => res.json() as AccommodationType[]);
+  }
+
+  // Places
+
+  getPlaces():Observable<Place[]>{
+    return this.authService.get('places').map(res => res.json() as Place[]);
+  }
+
+  // Accommodations
+  
+  createAccommodation(accommodation: Accommodation):Observable<Accommodation>{
+    return this.authService.post(
+      'accommodations',
+      JSON.stringify({ 
+        accommodation: {
+          name: accommodation.name,
+          accommodation_type_id: accommodation.accommodation_type.id,
+          place_id: accommodation.place.id,
+          description: accommodation.description,
+          address: accommodation.address,
+          latitude: accommodation.latitude,
+          longitude: accommodation.longitude,
+          image_url: accommodation.image_url
+        }
+      })).map(res => res.json() as Accommodation);
+  }
 }
