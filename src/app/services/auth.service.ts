@@ -6,6 +6,7 @@ import {Response } from "@angular/http";
 import { AccommodationType } from '../models/accommodation_type';
 import { Accommodation } from '../models/accommodation';
 import { Place } from '../models/place';
+import { Room } from '../models/room';
 
 @Injectable()
 export class AuthService {
@@ -62,7 +63,13 @@ export class AuthService {
   }
 
   // Accommodations
-  
+
+  getAccommodations():Observable<Accommodation[]>{
+    return this.authService.get(
+      'accommodations'
+    ).map(res => res.json() as Accommodation[]);
+  }
+
   createAccommodation(accommodation: Accommodation):Observable<Accommodation>{
     return this.authService.post(
       'accommodations',
@@ -77,6 +84,24 @@ export class AuthService {
           longitude: accommodation.longitude,
           image_url: accommodation.image_url
         }
-      })).map(res => res.json() as Accommodation);
+      })
+    ).map(res => res.json() as Accommodation);
+  }
+
+  // Rooms
+
+  createRoom(room: Room):Observable<Room>{
+    return this.authService.post(
+      'rooms',
+      JSON.stringify({
+        room: {
+          number: room.number,
+          beds: room.beds,
+          description: room.description,
+          price: room.price,
+          accommodation_id: room.accommodation.id
+        }
+      })
+    ).map(res => res.json() as Room);
   }
 }
