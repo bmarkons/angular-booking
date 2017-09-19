@@ -13,6 +13,7 @@ import { LoginFormComponent } from './login-form/login-form.component';
 import { RegisterFormComponent } from './register-form/register-form.component';
 import { ProfileComponent } from './profile/profile.component';
 import { CreateAccommodationComponent } from './accommodations/create-accommodation.component';
+import { CreateRoomComponent } from './accommodations/create-room.component';
 
 import { AuthGuard } from "./guards/auth.guard";
 import { AuthService } from "./services/auth.service";
@@ -27,7 +28,8 @@ import { ApiService } from "./services/api.service";
     LoginFormComponent,
     RegisterFormComponent,
     ProfileComponent,
-    CreateAccommodationComponent
+    CreateAccommodationComponent,
+    CreateRoomComponent
   ],
   imports: [
     BrowserModule,
