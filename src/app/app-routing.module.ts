@@ -2,6 +2,11 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {HomeComponent} from "./home/home.component";
 import {ProfileComponent} from "./profile/profile.component";
+import {AccommodationsListComponent} from "./accommodations/accommodations-list.component";
+import {CreateAccommodationComponent} from "./accommodations/create-accommodation.component";
+import {CreateRoomComponent} from "./accommodations/create-room.component";
+import {UsersListComponent} from "./users/users-list.component";
+import {CreateComponent} from "./reservations/create.component";
 import {AuthGuard} from "./guards/auth.guard";
 
 const routes: Routes = [
@@ -17,6 +22,31 @@ const routes: Routes = [
   {
     path: 'profile',
     component: ProfileComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'accommodations',
+    component: AccommodationsListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'accommodations/create',
+    component: CreateAccommodationComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'rooms/create',
+    component: CreateRoomComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'managers',
+    component: UsersListComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'rooms/reserve',
+    component: CreateComponent,
     canActivate: [AuthGuard]
   }
 ];
