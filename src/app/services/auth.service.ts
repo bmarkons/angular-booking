@@ -7,6 +7,7 @@ import { AccommodationType } from '../models/accommodation_type';
 import { Accommodation } from '../models/accommodation';
 import { Place } from '../models/place';
 import { Room } from '../models/room';
+import { User } from '../models/user';
 
 @Injectable()
 export class AuthService {
@@ -110,5 +111,20 @@ export class AuthService {
         }
       })
     ).map(res => res.json() as Room);
+  }
+
+  // Users
+  
+  getManagers():Observable<User[]>{
+    return this.authService.get(
+      'users?role=manager'
+    ).map(res => res.json() as User[]);
+  }
+
+  toggleBlock(manager: User):Observable<User>{
+    return this.authService.post(
+      `toggle_block/${manager.id}`,
+      null
+    ).map(res => res.json());
   }
 }
