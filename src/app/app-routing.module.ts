@@ -6,7 +6,6 @@ import {AccommodationsListComponent} from "./accommodations/accommodations-list.
 import {CreateAccommodationComponent} from "./accommodations/create-accommodation.component";
 import {CreateRoomComponent} from "./accommodations/create-room.component";
 import {UsersListComponent} from "./users/users-list.component";
-import {CreateComponent} from "./reservations/create.component";
 import {AuthGuard} from "./guards/auth.guard";
 
 const routes: Routes = [
@@ -42,11 +41,6 @@ const routes: Routes = [
   {
     path: 'managers',
     component: UsersListComponent,
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'rooms/reserve',
-    component: CreateComponent,
     canActivate: [AuthGuard]
   }
 ];

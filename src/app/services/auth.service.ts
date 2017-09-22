@@ -113,6 +113,27 @@ export class AuthService {
     ).map(res => res.json() as Room);
   }
 
+  getRooms(accommodation: Accommodation):Observable<Room[]>{
+    return this.authService.get(
+      `rooms?accommodation_id=${accommodation.id}`
+    ).map(res => res.json() as Room[]);
+  }
+
+  // Reservations
+
+  makeReservation(reservation):Observable<Object>{
+    return this.authService.post(
+      'room_reservations',
+      JSON.stringify({
+        room_reservation: {
+          room_id: reservation.room.id,
+          start: reservation.start,
+          end: reservation.end
+        }
+      })
+    ).map(res => res.json());
+  }
+
   // Users
   
   getManagers():Observable<User[]>{
