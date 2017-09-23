@@ -7,6 +7,7 @@ import {CreateAccommodationComponent} from "./accommodations/create-accommodatio
 import {CreateRoomComponent} from "./accommodations/create-room.component";
 import {UsersListComponent} from "./users/users-list.component";
 import {AuthGuard} from "./guards/auth.guard";
+import {AdminGuard} from "./guards/admin.guard";
 
 const routes: Routes = [
   {
@@ -41,7 +42,7 @@ const routes: Routes = [
   {
     path: 'managers',
     component: UsersListComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AdminGuard]
   }
 ];
 

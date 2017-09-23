@@ -16,6 +16,7 @@ import { CreateAccommodationComponent } from './accommodations/create-accommodat
 import { CreateRoomComponent } from './accommodations/create-room.component';
 
 import { AuthGuard } from "./guards/auth.guard";
+import { AdminGuard } from "./guards/admin.guard";
 import { AuthService } from "./services/auth.service";
 import { ApiService } from "./services/api.service";
 import { AccommodationsListComponent } from './accommodations/accommodations-list.component';
@@ -42,7 +43,7 @@ import { UsersListComponent } from './users/users-list.component';
     AppRoutingModule,
     MaterializeModule,
   ],
-  providers: [ Angular2TokenService, AuthService, AuthGuard, ApiService ],
+  providers: [ Angular2TokenService, AuthService, AuthGuard, ApiService, AdminGuard ],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }
