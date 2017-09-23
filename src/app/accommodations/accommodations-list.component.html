@@ -2,8 +2,8 @@
 
 <div class="col s6">
   <div class="collection">
-    <a class="collection-item" 
-       *ngFor="let accommodation of accommodations" 
+    <a class="collection-item"
+       *ngFor="let accommodation of accommodations"
        [class.active]="selected == accommodation"
        (click)="onSelectChange(accommodation)">
       {{accommodation.name}}
@@ -11,33 +11,36 @@
   </div>
 </div>
 <div class="col s6" *ngIf="selected">
-  <button (click)="approve(selected)" *ngIf="!selected.approved" class="waves-effect waves-light btn green">Approve</button>
-  <p *ngIf="selected.approved">Approved</p>
-  <p *ngIf="rooms.length == 0">No rooms for reservation available</p>  
-  <form #f="ngForm" *ngIf="rooms.length > 0">
-    <div class="row">
-      <div class="input-field col s3">
-        <select materialize="material_select" 
-                [materializeSelectOptions]="rooms"
-                id="room"
-                name="room"
-                required
-                [(ngModel)]="reservation.room">
-          <option value="" disabled selected>Room</option>
-          <option *ngFor="let room of rooms" [ngValue]="room">{{room.number}}</option>
-        </select>
+  <button *ngIf="!selected.approved && tokenService.currentUserData.role == 'admin'" (click)="approve(selected)" class="waves-effect waves-light btn green">Approve</button>
+  <p *ngIf="selected.approved && tokenService.currentUserData.role != 'user'"> Approved </p>
+  <p *ngIf="!selected.approved && tokenService.currentUserData.role == 'manager'"> Pending </p>
+  <div *ngIf="tokenService.currentUserData.role == 'user'">
+    <p *ngIf="rooms.length == 0">No rooms for reservation available</p>
+    <form #f="ngForm" *ngIf="rooms.length > 0">
+      <div class="row">
+        <div class="input-field col s3">
+          <select materialize="material_select"
+                  [materializeSelectOptions]="rooms"
+                  id="room"
+                  name="room"
+                  required
+                  [(ngModel)]="reservation.room">
+            <option value="" disabled selected>Room</option>
+            <option *ngFor="let room of rooms" [ngValue]="room">{{room.number}}</option>
+          </select>
+        </div>
+        <div class="input-field col s3">
+          <label for="start">Check in</label>
+          <input id="start" name="start" materialize="pickadate" type="text" [(ngModel)]="reservation.start"/>
+        </div>
+        <div class="input-field col s3">
+          <label for="end">Check out</label>
+          <input id="end" name="end" materialize="pickadate" type="text" [(ngModel)]="reservation.end"/>
+        </div>
+        <div class="input-field col s3">
+          <button (click)="makeReservation()" class="waves-effect waves-light btn blue">Reserve</button>
+        </div>
       </div>
-      <div class="input-field col s3">
-        <label for="start">Check in</label>
-        <input id="start" name="start" materialize="pickadate" type="text" [(ngModel)]="reservation.start"/>
-      </div>
-      <div class="input-field col s3">
-        <label for="end">Check out</label>
-        <input id="end" name="end" materialize="pickadate" type="text" [(ngModel)]="reservation.end"/>
-      </div>
-      <div class="input-field col s3">
-        <button (click)="makeReservation()">Reserve</button>
-      </div>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>

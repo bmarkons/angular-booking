@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MaterializeDirective, MaterializeAction } from 'angular2-materialize';
 
 import { AuthService } from '../services/auth.service';
+import {Angular2TokenService} from "angular2-token";
 
 import { Accommodation } from '../models/accommodation';
 
@@ -23,7 +24,10 @@ export class AccommodationsListComponent implements OnInit {
     end: null
   }
 
-  constructor(private auth: AuthService) { }
+  constructor(
+    private auth: AuthService,
+    public tokenService: Angular2TokenService
+  ) { }
 
   ngOnInit() {
     this.auth.getAccommodations().subscribe(accommodations => this.accommodations = accommodations);
@@ -31,11 +35,11 @@ export class AccommodationsListComponent implements OnInit {
 
   onSelectChange(accommodation: Accommodation) {
     this.selected = accommodation;
-    this.auth.getRooms(accommodation).subscribe(rooms => this.rooms = rooms); 
+    this.auth.getRooms(accommodation).subscribe(rooms => this.rooms = rooms);
   }
 
   approve(accommodation: Accommodation): void {
-    this.auth.approve(accommodation).subscribe(acc => accommodation.approved = acc.approved) 
+    this.auth.approve(accommodation).subscribe(acc => accommodation.approved = acc.approved)
   }
 
   makeReservation():void{
