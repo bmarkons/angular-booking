@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 import { Accommodation } from '../models/accommodation';
 import { Place } from '../models/place';
 import { AccommodationType } from '../models/accommodation_type';
+import { Room } from '../models/room';
 
 declare var Materialize:any;
 
@@ -30,6 +31,8 @@ export class AccommodationsListComponent implements OnInit {
   }
   accommodationTypes: AccommodationType[];
   places: Place[];
+  roomEdited: Room;
+  selectedRoom: Room;
 
   constructor(
     private auth: AuthService,
@@ -100,5 +103,29 @@ export class AccommodationsListComponent implements OnInit {
         Materialize.toast(`${this.selected.name} has been destroyed!`, 3000, 'rounded');
       }
     );
+  }
+
+  onRoomSelectChange(room: Room):void{
+    this.roomEdited = Object.assign(this.roomEdited || {}, room);
+    this.selectedRoom = room;
+  }
+
+  updateRoom(room: Room):void{
+    this.auth.updateRoom(this.roomEdited).subscribe(
+      (room) => {
+        Object.assign(this.roomEdited, room);
+        Object.assign(this.selectedRoom, room);
+        Materialize.toast(`Saved`, 3000, 'rounded');
+      }
+    )
+  }
+
+  deleteRoom(room: Room):void{
+    this.auth.deleteRoom(room).subscribe(
+      (room) => {
+        this.rooms = this.rooms.filter(function(r) {return r.id != room.id});
+        this.selectedRoom = null;
+      }
+    )
   }
 }

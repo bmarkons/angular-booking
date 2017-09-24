@@ -136,6 +136,25 @@ export class AuthService {
     ).map(res => res.json() as Room[]);
   }
 
+  updateRoom(room: Room):Observable<Room>{
+    return this.authService.put(
+      `rooms/${room.id}`,
+      JSON.stringify({
+        room: {
+          beds: room.beds,
+          description: room.description,
+          price: room.price
+        }
+      })
+    ).map(res => res.json() as Room);
+  }
+
+  deleteRoom(room: Room):Observable<Room>{
+    return this.authService.delete(
+      `rooms/${room.id}`
+    ).map(res => res.json() as Room);
+  }
+
   // Reservations
 
   makeReservation(reservation):Observable<Object>{

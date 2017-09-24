@@ -14,8 +14,8 @@
 <div class="col s6" *ngIf="selected">
   <button *ngIf="!selected.approved && tokenService.currentUserData.role == 'admin'" (click)="approve(selected)" class="waves-effect waves-light btn green">Approve</button>
   <div class="row">
-    <form #f="ngForm">
-      <table class="col s6">
+    <form #f="ngForm" class="col s6">
+      <table>
         <tbody>
           <tr>
             <td><strong>Name</strong></td>
@@ -106,6 +106,40 @@
         </tbody>
       </table>
     </form>
+    <div class="col s6">
+      <ul class="collection with-header">
+        <li class="collection-header"><h5>{{rooms.length > 0 ? 'Rooms' : 'No rooms, sorry'}}</h5></li>
+        <li *ngFor="let room of rooms" [class.active]="selectedRoom == room" (click)="tokenService.currentUserData.role == 'manager' && onRoomSelectChange(room)" class="collection-item">
+          <strong>{{room.number}}</strong>
+
+          <span class="new badge right blue" data-badge-caption="beds">{{room.beds || 0}}</span>
+          <span class="new badge right" data-badge-caption="$ per night">{{room.price || 0}}</span>
+          <p><i>{{room.description || 'No description provided'}}</i></p>
+          <button *ngIf="tokenService.currentUserData.role == 'manager'" (click)="deleteRoom(room)" class="waves-effect waves-light btn red">Destroy</button>
+        </li>
+      </ul>
+      <form #f="ngForm" *ngIf="selectedRoom">
+        <div class="row">
+          <div class="input-field col s6">
+            <input id="beds" name="beds" min="0" type="number" required [(ngModel)]="roomEdited.beds"/>
+            <label for="beds">Bed count</label>
+          </div>
+          <div class="input-field col s6">
+            <input id="price" name="price" min="0" type="number" required [(ngModel)]="roomEdited.price"/>
+            <label for="price">Price per night</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <textarea id="description" name="description" class="materialize-textarea" [(ngModel)]="roomEdited.description"></textarea>
+            <label for="description">Description</label>
+          </div>
+        </div>
+        <div class="col s12">
+          <button type="submit" (click)="updateRoom()" [disabled]="!(f.valid)" class="waves-effect waves-light btn blue right"> Save changes </button>
+        </div>
+      </form>
+    </div>
   </div>
   <div *ngIf="tokenService.currentUserData.role == 'user'">
     <p *ngIf="rooms.length == 0">No rooms for reservation available</p>

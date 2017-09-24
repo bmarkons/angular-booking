@@ -3,7 +3,7 @@
 <form #f="ngForm">
   <div class="row">
     <div class="input-field col s6">
-      <select materialize="material_select" 
+      <select materialize="material_select"
               [materializeSelectOptions]="accommodations"
               required
               id="accommodation"
@@ -25,11 +25,11 @@
   </div>
   <div class="row">
     <div class="input-field col s6">
-      <input id="beds" name="beds" min="0" type="number" [(ngModel)]="room.beds"/>
-      <label for="latitude">Bed count</label>
+      <input id="beds" name="beds" min="0" type="number" required [(ngModel)]="room.beds"/>
+      <label for="beds">Bed count</label>
     </div>
     <div class="input-field col s6">
-      <input id="price" name="price" min="0" type="number" [(ngModel)]="room.price"/>
+      <input id="price" name="price" min="0" type="number" required [(ngModel)]="room.price"/>
       <label for="price">Price per night</label>
     </div>
   </div>
