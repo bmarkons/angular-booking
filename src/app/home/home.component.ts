@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CreateAccommodationComponent } from '../accommodations/create-accommodation.component';
 import { CreateRoomComponent } from '../accommodations/create-room.component';
+import { Angular2TokenService } from 'angular2-token';
 
 
 @Component({
@@ -11,7 +12,7 @@ import { CreateRoomComponent } from '../accommodations/create-room.component';
 
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  constructor(public tokenService: Angular2TokenService) { }
 
   ngOnInit() {
 

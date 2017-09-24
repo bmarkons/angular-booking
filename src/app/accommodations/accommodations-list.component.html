@@ -99,6 +99,9 @@
               <button *ngIf="!editing && selected.user.id == tokenService.currentUserData.id" (click)="startEdit()" class="waves-effect waves-light btn blue">Edit</button>
               <button *ngIf="editing"(click)="update()" class="waves-effect waves-light btn">Save changes</button>
             </td>
+            <td *ngIf="!editing && selected.user.id == tokenService.currentUserData.id">
+              <button (click)="deleteAccommodation()" class="waves-effect waves-light btn red">Delete</button>
+            </td>
           </tr>
         </tbody>
       </table>

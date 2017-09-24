@@ -3,6 +3,7 @@ import { MaterializeDirective, MaterializeAction } from 'angular2-materialize';
 
 import { AuthService } from '../services/auth.service';
 import {Angular2TokenService} from "angular2-token";
+import {Router} from "@angular/router";
 
 import { Accommodation } from '../models/accommodation';
 import { Place } from '../models/place';
@@ -32,6 +33,7 @@ export class AccommodationsListComponent implements OnInit {
 
   constructor(
     private auth: AuthService,
+    private router: Router,
     public tokenService: Angular2TokenService
   ) { }
 
@@ -86,6 +88,16 @@ export class AccommodationsListComponent implements OnInit {
       },
       () => {
         Materialize.toast(`Error occured`, 3000, 'rounded');
+      }
+    );
+  }
+
+  deleteAccommodation():void{
+    this.auth.deleteAccommodation(this.selected).subscribe(
+      (a) => {
+        this.accommodations = this.accommodations.filter(function(acc){ return acc.id != a.id });
+        this.selected = null;
+        Materialize.toast(`${this.selected.name} has been destroyed!`, 3000, 'rounded');
       }
     );
   }

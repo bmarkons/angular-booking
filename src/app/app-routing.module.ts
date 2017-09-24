@@ -9,16 +9,19 @@ import {UsersListComponent} from "./users/users-list.component";
 import {AuthGuard} from "./guards/auth.guard";
 import {AdminGuard} from "./guards/admin.guard";
 import {ManagerGuard} from "./guards/manager.guard";
+import {HomeGuard} from "./guards/home.guard";
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
-    pathMatch: 'full'
+    pathMatch: 'full',
+    canActivate: [HomeGuard]
   },
   {
     path: 'home',
-    component: HomeComponent
+    component: HomeComponent,
+    canActivate: [HomeGuard]
   },
   {
     path: 'profile',

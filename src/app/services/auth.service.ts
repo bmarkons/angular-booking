@@ -108,7 +108,11 @@ export class AuthService {
       })
     ).map(res => res.json() as Accommodation);
   }
-
+  deleteAccommodation(accommodation: Accommodation):Observable<Accommodation>{
+    return this.authService.delete(
+      `accommodations/${accommodation.id}`
+    ).map(res => res.json() as Accommodation);
+  }
   // Rooms
 
   createRoom(room: Room):Observable<Room>{
