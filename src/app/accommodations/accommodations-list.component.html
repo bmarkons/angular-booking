@@ -139,6 +139,14 @@
           <button type="submit" (click)="updateRoom()" [disabled]="!(f.valid)" class="waves-effect waves-light btn blue right"> Save changes </button>
         </div>
       </form>
+      <form #k="ngForm" *ngIf="allowedComment">
+        <div class="input-field">
+          <textarea id="text" name="text" class="materialize-textarea" [(ngModel)]="comment.text"></textarea>
+          <label for="text">Comment</label>
+        </div>
+        <button type="submit" (click)="submitComment()" [disabled]="!(k.valid)" class="waves-effect waves-light btn green right">Submit</button>
+      </form>
+      <p *ngFor="let comment of selected.comments">{{comment.text}}</p>
     </div>
   </div>
   <div *ngIf="tokenService.currentUserData.role == 'user'">

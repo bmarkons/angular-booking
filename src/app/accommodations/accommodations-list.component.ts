@@ -33,6 +33,8 @@ export class AccommodationsListComponent implements OnInit {
   places: Place[];
   roomEdited: Room;
   selectedRoom: Room;
+  allowedComment = false;
+  comment = { text: '' };
 
   constructor(
     private auth: AuthService,
@@ -47,8 +49,12 @@ export class AccommodationsListComponent implements OnInit {
   onSelectChange(accommodation: Accommodation) {
     this.selected = accommodation;
     this.auth.getRooms(accommodation).subscribe(rooms => this.rooms = rooms);
-
+    this.checkAllowedComment();
     if(this.editing) { this.cancelEdit(); }
+  }
+
+  checkAllowedComment(){
+    this.auth.checkCommentAllowed(this.selected).subscribe(res => this.allowedComment = res);
   }
 
   approve(accommodation: Accommodation): void {
@@ -127,5 +133,14 @@ export class AccommodationsListComponent implements OnInit {
         this.selectedRoom = null;
       }
     )
+  }
+
+  submitComment():void{
+    this.auth.createComment(this.comment, this.selected).subscribe(
+      (comment) => {
+        this.selected.comments.push(comment);
+      }
+    );
+    this.allowedComment = false;
   }
 }

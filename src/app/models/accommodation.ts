@@ -7,6 +7,7 @@ export class Accommodation {
   name: string;
   accommodation_type: AccommodationType;
   place: Place;
+  comments: any[];
   user: any;
   rooms: Room[];
   description: string;

@@ -184,4 +184,22 @@ export class AuthService {
       null
     ).map(res => res.json());
   }
+
+  createComment(comment, accommodation):Observable<Object>{
+    return this.authService.post(
+      'comments',
+      JSON.stringify({
+        comment: {
+          text: comment.text,
+          accommodation_id: accommodation.id
+        }
+      })
+    ).map(res => res.json());
+  }
+
+  checkCommentAllowed(accommodation):Observable<boolean>{
+    return this.authService.get(
+      `comments/check?accommodation_id=${accommodation.id}`
+    ).map(res => res.json() as boolean);
+  }
 }
