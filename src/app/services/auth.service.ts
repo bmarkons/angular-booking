@@ -31,22 +31,35 @@ export class AuthService {
     );
   }
 
+  convert(accommodation: Accommodation){
+    return {
+      name: accommodation.name,
+      accommodation_type_id: accommodation.accommodation_type.id,
+      place_id: accommodation.place.id,
+      description: accommodation.description,
+      address: accommodation.address,
+      latitude: accommodation.latitude,
+      longitude: accommodation.longitude,
+      image_url: accommodation.image_url
+    }
+  }
+
   registerUser(signUpData:  {email:string, password:string, passwordConfirmation:string}):Observable<Response>{
     return this.authService.registerAccount(signUpData).map(
-        res => {
-          this.userSignedIn$.next(true);
-          return res
-        }
+      res => {
+        this.userSignedIn$.next(true);
+        return res
+      }
     );
   }
 
   logInUser(signInData: {email:string, password:string}):Observable<Response>{
 
     return this.authService.signIn(signInData).map(
-        res => {
-          this.userSignedIn$.next(true);
-          return res
-        }
+      res => {
+        this.userSignedIn$.next(true);
+        return res
+      }
     );
 
   }
@@ -74,17 +87,8 @@ export class AuthService {
   createAccommodation(accommodation: Accommodation):Observable<Accommodation>{
     return this.authService.post(
       'accommodations',
-      JSON.stringify({ 
-        accommodation: {
-          name: accommodation.name,
-          accommodation_type_id: accommodation.accommodation_type.id,
-          place_id: accommodation.place.id,
-          description: accommodation.description,
-          address: accommodation.address,
-          latitude: accommodation.latitude,
-          longitude: accommodation.longitude,
-          image_url: accommodation.image_url
-        }
+      JSON.stringify({
+        accommodation: this.convert(accommodation)
       })
     ).map(res => res.json() as Accommodation);
   }
@@ -93,6 +97,15 @@ export class AuthService {
     return this.authService.post(
       `accommodations/${accommodation.id}/approve`,
       null
+    ).map(res => res.json() as Accommodation);
+  }
+
+  updateAccommodation(accommodation: Accommodation):Observable<Accommodation>{
+    return this.authService.put(
+      `accommodations/${accommodation.id}`,
+      JSON.stringify({
+        accommodation: this.convert(accommodation)
+      })
     ).map(res => res.json() as Accommodation);
   }
 
@@ -135,7 +148,7 @@ export class AuthService {
   }
 
   // Users
-  
+
   getManagers():Observable<User[]>{
     return this.authService.get(
       'users?role=manager'

@@ -6,54 +6,103 @@
         [class.active]="selected == accommodation"
         (click)="onSelectChange(accommodation)">
       {{accommodation.name}}
-      <span *ngIf="accommodation.approved && tokenService.currentUserData.role != 'user'" class="secondary-content new badge green"> Approved </span>
-      <span *ngIf="!accommodation.approved && tokenService.currentUserData.role == 'manager'" class="secondary-content new badge lime darken-3"> Pending </span>
+      <span *ngIf="accommodation.approved && tokenService.currentUserData.role != 'user'" data-badge-caption="" class="secondary-content new badge green"> Approved </span>
+      <span *ngIf="!accommodation.approved && tokenService.currentUserData.role == 'manager'" data-badge-caption="" class="secondary-content new badge lime darken-1"> Pending </span>
     </li>
   </ul>
 </div>
 <div class="col s6" *ngIf="selected">
   <button *ngIf="!selected.approved && tokenService.currentUserData.role == 'admin'" (click)="approve(selected)" class="waves-effect waves-light btn green">Approve</button>
   <div class="row">
-    <table class="col s6">
-      <tbody>
-        <tr>
-          <td><strong>Name</strong></td>
-          <td>{{selected.name}}</td>
-        </tr>
-        <tr>
-          <td><strong>Description</strong></td>
-          <td>{{selected.description}}</td>
-        </tr>
-        <tr>
-          <td><strong>Address</strong></td>
-          <td>{{selected.address}}</td>
-        </tr>
-        <tr>
-          <td><strong>Latitude</strong></td>
-          <td>{{selected.latitude}}</td>
-        </tr>
-        <tr>
-          <td><strong>Longitude</strong></td>
-          <td>{{selected.longitude}}</td>
-        </tr>
-        <tr>
-          <td><strong>Image URL</strong></td>
-          <td>{{selected.image_url}}</td>
-        </tr>
-        <tr>
-          <td><strong>Place</strong></td>
-          <td>{{selected.place.name}}</td>
-        </tr>
-        <tr>
-          <td><strong>Accommodation type</strong></td>
-          <td>{{selected.accommodation_type.name}}</td>
-        </tr>
-        <tr>
-          <td><strong>Managed by</strong></td>
-          <td>{{selected.user.name}}</td>
-        </tr>
-      </tbody>
-    </table>
+    <form #f="ngForm">
+      <table class="col s6">
+        <tbody>
+          <tr>
+            <td><strong>Name</strong></td>
+            <td *ngIf="!editing">{{selected.name}}</td>
+            <td *ngIf="editing">
+              <input id="name" name="name" type="text" [(ngModel)]="edited.name" required/>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Description</strong></td>
+            <td *ngIf="!editing">{{selected.description}}</td>
+            <td *ngIf="editing">
+              <textarea id="description" name="description" class="materialize-textarea" [(ngModel)]="edited.description"></textarea>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Address</strong></td>
+            <td *ngIf="!editing">{{selected.address}}</td>
+            <td *ngIf="editing">
+              <input id="address" name="address" type="text" [(ngModel)]="edited.address"/>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Latitude</strong></td>
+            <td *ngIf="!editing">{{selected.latitude}}</td>
+            <td *ngIf="editing">
+              <input id="latitude" name="latitude" type="number" [(ngModel)]="edited.latitude"/>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Longitude</strong></td>
+            <td *ngIf="!editing">{{selected.longitude}}</td>
+            <td *ngIf="editing">
+              <input id="longitude" name="longitude" type="number" [(ngModel)]="edited.longitude"/>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Image URL</strong></td>
+            <td *ngIf="!editing">{{selected.image_url}}</td>
+            <td *ngIf="editing">
+              <input id="image_url" name="image_url" type="text" [(ngModel)]="edited.image_url" />
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Place</strong></td>
+            <td *ngIf="!editing">{{selected.place.name}}</td>
+            <td *ngIf="editing">
+              <select materialize="material_select"
+                      [materializeSelectOptions]="places"
+                      id="place"
+                      name="place"
+                      [(ngModel)]="edited.place">
+                <option value="" disabled selected>Place</option>
+                <option *ngFor="let place of places" [ngValue]="place">{{place.name}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Accommodation type</strong></td>
+            <td *ngIf="!editing">{{selected.accommodation_type.name}}</td>
+            <td *ngIf="editing">
+              <select materialize="material_select"
+                      [materializeSelectOptions]="accommodationTypes"
+                      id="accommodation_type"
+                      name="accommodation_type"
+                      [(ngModel)]="edited.accommodation_type">
+                <option value="" disabled selected>Type</option>
+                <option *ngFor="let type of accommodationTypes" [ngValue]="type">{{type.name}}</option>
+              </select>
+            </td>
+          </tr>
+          <tr>
+            <td><strong>Managed by</strong></td>
+            <td>{{selected.user.name}}</td>
+          </tr>
+          <tr>
+            <td *ngIf="editing">
+              <button (click)="cancelEdit()" class="waves-effect waves-light btn orange">Cancel</button>
+            </td>
+            <td>
+              <button *ngIf="!editing && selected.user.id == tokenService.currentUserData.id" (click)="startEdit()" class="waves-effect waves-light btn blue">Edit</button>
+              <button *ngIf="editing"(click)="update()" class="waves-effect waves-light btn">Save changes</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </form>
   </div>
   <div *ngIf="tokenService.currentUserData.role == 'user'">
     <p *ngIf="rooms.length == 0">No rooms for reservation available</p>
