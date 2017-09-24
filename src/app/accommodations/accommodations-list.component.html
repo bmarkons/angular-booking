@@ -1,19 +1,60 @@
-<h4>Accommodations</h4>
-
 <div class="col s6">
-  <div class="collection">
-    <a class="collection-item"
-       *ngFor="let accommodation of accommodations"
-       [class.active]="selected == accommodation"
-       (click)="onSelectChange(accommodation)">
+  <ul class="collection with-header">
+    <li class="collection-header"><h4>Accommodations</h4></li>
+    <li class="collection-item"
+        *ngFor="let accommodation of accommodations"
+        [class.active]="selected == accommodation"
+        (click)="onSelectChange(accommodation)">
       {{accommodation.name}}
-    </a>
-  </div>
+      <span *ngIf="accommodation.approved && tokenService.currentUserData.role != 'user'" class="secondary-content new badge green"> Approved </span>
+      <span *ngIf="!accommodation.approved && tokenService.currentUserData.role == 'manager'" class="secondary-content new badge lime darken-3"> Pending </span>
+    </li>
+  </ul>
 </div>
 <div class="col s6" *ngIf="selected">
   <button *ngIf="!selected.approved && tokenService.currentUserData.role == 'admin'" (click)="approve(selected)" class="waves-effect waves-light btn green">Approve</button>
-  <p *ngIf="selected.approved && tokenService.currentUserData.role != 'user'"> Approved </p>
-  <p *ngIf="!selected.approved && tokenService.currentUserData.role == 'manager'"> Pending </p>
+  <div class="row">
+    <table class="col s6">
+      <tbody>
+        <tr>
+          <td><strong>Name</strong></td>
+          <td>{{selected.name}}</td>
+        </tr>
+        <tr>
+          <td><strong>Description</strong></td>
+          <td>{{selected.description}}</td>
+        </tr>
+        <tr>
+          <td><strong>Address</strong></td>
+          <td>{{selected.address}}</td>
+        </tr>
+        <tr>
+          <td><strong>Latitude</strong></td>
+          <td>{{selected.latitude}}</td>
+        </tr>
+        <tr>
+          <td><strong>Longitude</strong></td>
+          <td>{{selected.longitude}}</td>
+        </tr>
+        <tr>
+          <td><strong>Image URL</strong></td>
+          <td>{{selected.image_url}}</td>
+        </tr>
+        <tr>
+          <td><strong>Place</strong></td>
+          <td>{{selected.place.name}}</td>
+        </tr>
+        <tr>
+          <td><strong>Accommodation type</strong></td>
+          <td>{{selected.accommodation_type.name}}</td>
+        </tr>
+        <tr>
+          <td><strong>Managed by</strong></td>
+          <td>{{selected.user.name}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <div *ngIf="tokenService.currentUserData.role == 'user'">
     <p *ngIf="rooms.length == 0">No rooms for reservation available</p>
     <form #f="ngForm" *ngIf="rooms.length > 0">

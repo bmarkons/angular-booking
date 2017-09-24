@@ -6,8 +6,9 @@ export class Accommodation {
   id: number;
   name: string;
   accommodation_type: AccommodationType;
-  rooms: Room[];
   place: Place;
+  user: any;
+  rooms: Room[];
   description: string;
   address: string;
   latitude: number;
