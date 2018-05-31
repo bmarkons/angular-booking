@@ -1,1 +1,1 @@
-This is a sample Semaphore 2.0 project
+This is a simple Semaphore 2.0 project
