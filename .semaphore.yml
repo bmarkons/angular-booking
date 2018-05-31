@@ -1,25 +1,22 @@
 version: "v3.0"
-name: Basic, 3 blocks YAML file example. Only first 2 blocks will be executed because second block will fail.
+name: Basic, 2 blocks YAML file example.
 semaphore_image: standard
 blocks:
-  - build:
+# Is This a comment?
+# Yes it is!
+- build:
       jobs:
         - name: Job from 1st block
           commands:
             - echo $SEMAPHORE_PIPELINE_ID
-        - name: 2nd job from 1st block
+        - name: 2nd job from 1st build block
           commands:
-            - echo This is from second job
-  - build:
+            - echo "This is from the 2nd job of 1st build block"
+            - echo $SEMAPHORE_PIPELINE_ID
+- build:
       jobs:
-        - name: Job from 2nd block
+        - name: Job from 2nd build block
           commands:
             - echo $SEMAPHORE_PIPELINE_ID
-#            - "false"
+            - echo "This is new"
             - echo bar2
-  - build:
-      jobs:
-        - name: Job from 3rd block
-          commands:
-            - echo foo3
-            - echo bar3
