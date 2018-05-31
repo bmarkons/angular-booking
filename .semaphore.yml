@@ -15,7 +15,7 @@ blocks:
         - name: Job from 2nd block
           commands:
             - echo $SEMAPHORE_PIPELINE_ID
-            - "false"
+#            - "false"
             - echo bar2
   - build:
       jobs:
