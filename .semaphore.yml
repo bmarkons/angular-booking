@@ -4,7 +4,7 @@ semaphore_image: standard
 blocks:
   - build:
       jobs:
-        - name: Job from 1st block
+        - name: Job from 1st block - ppp
           commands:
             - echo $SEMAPHORE_PIPELINE_ID
         - name: 2nd job from 1st block
@@ -15,7 +15,6 @@ blocks:
         - name: Job from 2nd block
           commands:
             - echo $SEMAPHORE_PIPELINE_ID
-            - "false"
             - echo bar2
   - build:
       jobs:
