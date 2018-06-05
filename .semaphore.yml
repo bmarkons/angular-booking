@@ -32,3 +32,5 @@ blocks:
             - echo $SEMAPHORE_PIPELINE_ID
             - echo "This is new"
             - echo bar2
+
+
