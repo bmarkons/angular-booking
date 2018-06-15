@@ -1,5 +1,5 @@
 version: "v3.0"
-name: Basic, 2 blocks YAML file example.
+name: Basic, 2 blocks YAML file example...
 blocks:
 - build:
       jobs:
