@@ -78,6 +78,6 @@ workflows:
           requires:
             - B
       - H
-      - I
+      - I:
           requires:
             - B
