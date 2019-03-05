@@ -41,6 +41,11 @@ jobs:
       - image: circleci/ruby:2.4-node
     steps:
       - run: echo "done"
+  H:
+    docker:
+      - image: circleci/ruby:2.4-node
+    steps:
+      - run: echo "done"
       
 workflows:
   version: 2
@@ -66,3 +71,4 @@ workflows:
       - G:
           requires:
             - B
+      - H
