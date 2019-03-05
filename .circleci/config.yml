@@ -44,7 +44,7 @@ workflows:
       - D:
           requires:
             - C
-      - D:
+      - E:
           requires:
-            - A
-            - C
+            - D
+            - B
