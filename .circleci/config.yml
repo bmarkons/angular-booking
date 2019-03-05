@@ -5,13 +5,13 @@ jobs:
     docker:
       - image: circleci/ruby:2.4-node
     steps:
-      - run: echo "done"
+      - run: sleep 10
 
   B:
     docker:
       - image: circleci/ruby:2.4-node
     steps:
-      - run: echo "done"
+      - run: sleep 15
 
   C:
     docker:
